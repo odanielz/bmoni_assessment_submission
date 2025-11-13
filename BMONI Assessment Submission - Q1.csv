@@ -1,0 +1,61 @@
+,
+"select * from mart_mart.dim_application_data;
+What is the Daily Active Users (DAU) for each day in October 2025? = 31
+Assumptions: Since there is no standard definition for an active user, I am assuming that any user who has performed the 
+following activities view_page, purchase, login, kyc_submitted is at least active.
+select 
+event_date,  
+count(distinct user_id) as active_user_count
+ from mart_mart.fact_posthog_events pe
+ join mart_mart.dim_event_type et on pe.event_type_id = et.id
+where pe.event_date between '2025-10-01' and '2025-10-31'
+ and et.event_type in ('view_page', 'purchase', 'login', 'kyc_submitted')
+ group by 1
+ order by 1 asc;",
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+,
+Output,
+,
+event_date,active_user_count
+2025-10-01,583
+2025-10-02,592
+2025-10-03,730
+2025-10-04,704
+2025-10-05,658
+2025-10-06,619
+2025-10-07,629
+2025-10-08,709
+2025-10-09,612
+2025-10-10,679
+2025-10-11,708
+2025-10-12,679
+2025-10-13,550
+2025-10-14,562
+2025-10-15,578
+2025-10-16,542
+2025-10-17,623
+2025-10-18,579
+2025-10-19,754
+2025-10-20,605
+2025-10-21,697
+2025-10-22,580
+2025-10-23,753
+2025-10-24,561
+2025-10-25,749
+2025-10-26,736
+2025-10-27,736
+2025-10-28,642
+2025-10-29,623
+2025-10-30,641
+2025-10-31,697
