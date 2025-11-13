@@ -7,7 +7,7 @@ event_date,
 count(distinct user_id) as active_user_count
  from mart_mart.fact_posthog_events pe
  join mart_mart.dim_event_type et on pe.event_type_id = et.id
- where TO_CHAR(event_date, 'yyyy-mm') = '2025-10'
+ where pe.event_date between '2025-10-01' and '2025-10-31'
  and et.event_type in ('view_page', 'purchase', 'login', 'kyc_submitted')
  group by 1
  order by 1 asc;
@@ -18,7 +18,7 @@ user_id,
 count(user_id) as activity_count
  from mart_mart.fact_posthog_events pe
  join mart_mart.dim_event_type et on pe.event_type_id = et.id
- where TO_CHAR(event_date, 'yyyy-mm') = '2025-10'
+ where pe.event_date between '2025-10-01' and '2025-10-31'
  and et.event_type in ('purchase')
  group by 1
  order by 2 asc)
@@ -32,7 +32,7 @@ count(user_id) as active_user_count
  from mart_mart.fact_posthog_events pe
  left join mart_mart.dim_event_type et on pe.event_type_id = et.id
  left join mart_mart.dim_device_type dt on pe.device_type_id = dt.id
- where TO_CHAR(event_date, 'yyyy-mm') = '2025-10'
+ where pe.event_date between '2025-10-01' and '2025-10-31'
  and et.event_type in ('kyc_approved')
  group by 1, 2
  order by 1, 2 asc;
